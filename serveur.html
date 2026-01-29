@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Accueil</title>
+</head>
+<body>
+
+  <h1 id="titre">Chargement...</h1>
+  <p id="description"></p>
+
+  <script>
+    fetch("http://localhost:3000/api/accueil")
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("titre").textContent = data.titre;
+        document.getElementById("description").textContent = data.description;
+      })
+      .catch(error => {
+        console.error("Erreur API :", error);
+      });
+  </script>
+
+</body>
+</html>
