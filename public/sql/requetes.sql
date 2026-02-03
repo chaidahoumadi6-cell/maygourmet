@@ -31,5 +31,5 @@ INSERT INTO equipe (nom, prenom, email, telephone, poste, adresse_postale, prese
 DELETE FROM equipe WHERE id = 1;
 
 -- modifier une ligne de la table
-DELETE FROM equipe SET nom = "sha"
+UPDATE8 FROM equipe SET nom = "sha"
 
