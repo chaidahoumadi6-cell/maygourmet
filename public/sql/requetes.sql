@@ -15,6 +15,8 @@ CREATE TABLE equipe (
 
 );
 
+
+
 -- Afficher les tables existante
 SHOW TABLES;
 
@@ -47,19 +49,44 @@ CREATE TABLE plat (
 );
 
 -- 2. Créer la table fournisseur
-CREATE TABLE fournisseur (
+CREATE TABLE fournisseur IF NOT EXIST (
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     nom_fournisseur VARCHAR(100) NOT NULL,
     adresse VARCHAR(200),
     telephone VARCHAR(20),
     email VARCHAR(100),
     date_partenariat DATE
+    -- J'associe la table fournisseur à la table produit en utilisant l' ID PRODUIT 
+    -- L'ID_PRODUIT PROVIENT de la table produit 
+    id_produit INT NOT NULL,
+    FOREIGN KEY (id_produit) REFERENCES produit(id_produit),
 );
+
+
+alter table fournisseur
+add id_produit int not null,
+add FOREIGN KEY (id_produit) REFERENCES produit(id_produit);
+
+CREATE TABLE produit IF NOT EXISTS(
+    id_produit INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    nom VARCHAR(100) NOT NULL,
+    presentation VARCHAR(155),
+    prix INT NOT NULL,
+    origin VARCHAR(30)NOT NULL,
+    categorie VARCHAR(30),
+    disponibilite BOOLEAN DEFAULT false,
+    type_culture VARCHAR(30)
+    id_fournisseur INT NOT NULL,
+    -- J'associe la table produit à la table fournisseur en utilisant l' ID FOURNISSEUR
+    FOREIGN KEY (id_fournisseur) REFERENCES fournisseur(id_fournisseur)
+);
+
 
 -- 3. Lister les noms des tables existantes dans la base de données
 SHOW TABLES;
 
 -- 4. Ajouter 4 fournisseurs au minimum dans la table fournisseur
+-- Ajouter une ligne dans la table founisseur
 INSERT INTO fournisseur (nom_fournisseur, adresse, telephone, email, date_partenariat) VALUES("Fournisseur Alimentaire Mayotte", "Kaweni, Mamoudzou", "0269612345", "contact@fam-mayotte.com", "2007-05-03");
 INSERT INTO fournisseur (nom_fournisseur, adresse, telephone, email, date_partenariat) VALUES("TETRAMA", "129 rue mazava 97600 Kaweni", "0269601234", "tetramagroupe@gmail.com", "2015-07-04");
 INSERT INTO fournisseur (nom_fournisseur, adresse, telephone, email, date_partenariat) VALUES("Jambo", "Majicavo Lamir", "0269624567", "commande@pfoi.fr", "2019-09-10");
@@ -90,10 +117,29 @@ UPDATE plat SET nom_plat = "Poulet au curry et lait de coco" WHERE id_plat = 2;
 -- 11. Supprimer un plat au choix
 DELETE FROM plat WHERE id_plat = 5;
 
-
+-- Modifier un champ pour une ligne spécifique
+UPDATE equipe SET nom = ""WHERE id =4
 
 -- Vérification finale des fournisseurs restants
 SELECT * FROM fournisseur;
 
 -- Vérification finale des plats restants
 SELECT * FROM plat;
+
+-- 1. Désactiver la vérification des clés étrnagères
+SET FOREIGN_KEY_CHHECKS=0;
+-- 2.Supprimer la table founisseur
+Drop table founisseur
+-- 3. Ractiver la vérification des clés étrangéres
+SET FOREIGN_KEY_CHHECKS=1;
+
+-- créer la table 'fournisseur'
+CREATE TABLE fournisseur(
+    id_fournisseur INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    nom VARCHAR(155) NOT NULL,
+    responsable VARCHAR(155) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    telephone VARCHAR(100),
+    adresse_postale VARCHAR(255),
+    presentation_fournisseur VARCHAR(255)
+);
