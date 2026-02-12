@@ -11,5 +11,10 @@
     <%- include('navbar') -%>
 
     <h2>Mon équipe May Gourmet</h2>
+
+    <% resultatEquipe.froEach(resultat => { %>
+        <%= resultat.nom %>
+    <% }) %>
+
 </body>
 </html>
