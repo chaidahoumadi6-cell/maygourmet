@@ -79,7 +79,19 @@ app.get("/api/equipe", (req, res) => {
         }
     });
 
-    res.render('equipe');
+   
+});
+
+// J'ajoute un fournisseur dans la table fournisseur pour cela j'utilise la méthode POST
+app.post('api/fournisseur', (req, res) => {
+    console.log("corps de la requête : ", req.body);
+});
+
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+
+app.get('/api/fournisseur', (req, res) => {
+    res.render("fournisseur");
 });
 
 

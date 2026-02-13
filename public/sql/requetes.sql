@@ -23,7 +23,7 @@ SHOW TABLES;
 INSERT INTO equipe (nom, prenom, email, telephone, poste, adresse_postale, presentation, date_recrutement) VALUES ("SAID","Fatima","hshahida@gamil.com","0639 02 11 20","Gérante","06 Rue de la Mosquée 97600 Mamoudzou","Passionnée de cuisine traditionnelle","2015-02-01");
 
 
-INSERT INTO equipe (nom, prenom, email, telephone, poste, adresse_postale, presentation, date_recrutement) VALUES ("ALi","Said","shoumadi@gmail.com","0639 02 11 20","gerante","02 Rue de la Mosquée 97600 labattoir","Passionnée de cuisine traditionnelle","2001-02-15");
+INSERT INTO equipe (nom, prenom, email, telephone, poste, adresse_postale, presentation, date_recrutement) VALUES ("ALi","Said","shoumadi@gmail.com","0639 02 11 20","","02 Rue de la Mosquée 97600 labattoir","Passionnée de cuisine traditionnelle","2001-02-15");
  
 INSERT INTO equipe (nom, prenom, email, telephone, poste, adresse_postale, presentation, date_recrutement) VALUES ("COMBO","Ali","cali@gmail.com","0693 02 01 15","gerante"," 11 Rue de la Mosquée 97600 Pamandzi","Passionnée de cuisine traditionnelle","2011-01-06");
 

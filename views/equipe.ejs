@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,10 +10,18 @@
     <!-- Inclure le fichier navbar.ejs pour avoir la barre de navigation-->
     <%- include('navbar') -%>
 
-    <h2>Mon équipe May Gourmet</h2>
+    <h2>Mon Equipe May Gourmet</h2>
 
-    <% resultatEquipe.froEach(resultat => { %>
-        <%= resultat.nom %>
+    <% resultatEquipe.forEach(resultat => { %>
+        <div class="card">
+              <img class="boule" src="/images/full hd.avif" alt="Avatar">
+
+            <div class="container">
+                <h1><b><%= resultat.nom %> <%= resultat.prenom %></b></h1>
+                <p><%= resultat.poste %> </p>
+            </div>
+        </div>
+        
     <% }) %>
 
 </body>
