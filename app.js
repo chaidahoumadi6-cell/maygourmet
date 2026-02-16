@@ -97,10 +97,6 @@ app.post('/api/fournisseur', (req, res) => {
     console.log(req.body.Presentation);
 
 
-
-
-
-
 });
 
 
