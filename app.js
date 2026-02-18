@@ -89,13 +89,48 @@ app.get("/api/equipe", (req, res) => {
 // J'ajoute un fournisseur dans la table fournisseur pour cela j'utilise la méthode POST
 app.post('/api/fournisseur', (req, res) => {
     console.log("corps de la requête : ", req.body);
-    console.log(req.body.nom);
-    console.log(req.body.responsable);
-    console.log(req.body.mail);
-    console.log(req.body.telephone);
-    console.log(req.body.adresse);
-    console.log(req.body.Presentation);
 
+    console.log(req.body.nom);
+    const nomFournisseur = req.body.nom;
+
+    console.log(req.body.responsable);
+    const responsableFournisseur= req.body.responsable;
+
+    console.log(req.body.mail);
+    const mailFournisseur = req.body.mail;
+
+    console.log(req.body.telephone);
+    const telephoneFournisseur = req.body.telephone;
+
+    console.log(req.body.adresse);
+    const adresseFournisseur = req.body.adresse;
+
+    console.log(req.body.Presentation);
+    const PresentationFournisseur = req.body.Presentation;
+
+
+    const requeteSql = "INSERT INTO fournisseur (nom, responsable, mail, telephone, adresse, Presentation_fournisseur) VALUES (?, ?, ?, ?, ?, ?)";
+
+    const ordreChamps = [nomFournisseur, responsableFournisseur, mailFournisseur, telephoneFournisseur, adresseFournisseur, PresentationFournisseur]; 
+
+    // Je me connecte à la base de données
+    req.getConnection((erreur, connection) => {
+        if(erreur) {
+            console.log("Erreur de connxion à la base de données : ", erreur);
+
+        } else{ // Si j'ai réussi à me connecter à la base de données
+            connection.query(requeteSql, ordreChamps, (erreur,nouveauFournisseur) => {
+                if(erreur) {
+                    console.log("Erreur d'ajout fournisseur :", err);
+                } else{
+                    console.log("Bravo! Nouveau fournisseur ajoute");
+                    res.status(300).redirect("/accueil");
+                }
+
+            });
+        }
+    });
+    
 
 });
 
