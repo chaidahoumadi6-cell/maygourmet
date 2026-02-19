@@ -96,22 +96,22 @@ app.post('/api/fournisseur', (req, res) => {
     console.log(req.body.responsable);
     const responsableFournisseur= req.body.responsable;
 
-    console.log(req.body.mail);
-    const mailFournisseur = req.body.mail;
+    console.log(req.body.email);
+    const emailFournisseur = req.body.email;
 
     console.log(req.body.telephone);
     const telephoneFournisseur = req.body.telephone;
 
-    console.log(req.body.adresse);
-    const adresseFournisseur = req.body.adresse;
+    console.log(req.body.adresse_postale);
+    const adresseFournisseur = req.body.adresse_postale;
 
     console.log(req.body.Presentation);
     const PresentationFournisseur = req.body.Presentation;
 
 
-    const requeteSql = "INSERT INTO fournisseur (nom, responsable, mail, telephone, adresse, Presentation_fournisseur) VALUES (?, ?, ?, ?, ?, ?)";
+    const requeteSql = "INSERT INTO fournisseur (nom, responsable, email, telephone, adresse_postale, Presentation_fournisseur) VALUES (?, ?, ?, ?, ?, ?)";
 
-    const ordreChamps = [nomFournisseur, responsableFournisseur, mailFournisseur, telephoneFournisseur, adresseFournisseur, PresentationFournisseur]; 
+    const ordreChamps = [nomFournisseur, responsableFournisseur, emailFournisseur, telephoneFournisseur, adresseFournisseur, PresentationFournisseur]; 
 
     // Je me connecte à la base de données
     req.getConnection((erreur, connection) => {
@@ -121,10 +121,10 @@ app.post('/api/fournisseur', (req, res) => {
         } else{ // Si j'ai réussi à me connecter à la base de données
             connection.query(requeteSql, ordreChamps, (erreur,nouveauFournisseur) => {
                 if(erreur) {
-                    console.log("Erreur d'ajout fournisseur :", err);
+                    console.log("Erreur d'ajout fournisseur :", erreur);
                 } else{
                     console.log("Bravo! Nouveau fournisseur ajoute");
-                    res.status(300).redirect("/accueil");
+                    res.status(300).redirect("/api/accueil");
                 }
 
             });
