@@ -19,10 +19,16 @@
             <div class="container">
                 <h1><b><%= resultat.nom %> <%= resultat.prenom %></b></h1>
                 <p><%= resultat.poste %> </p>
+                <input type="button" value="supprimer" onclick="supprimer('<%= resultat.id')">
             </div>
         </div>
         
     <% }) %>
 
 </body>
+
+<script>
+    
+</script>
+
 </html>

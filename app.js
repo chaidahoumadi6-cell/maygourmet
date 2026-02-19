@@ -86,6 +86,30 @@ app.get("/api/equipe", (req, res) => {
    
 });
 
+
+app.delete('/api/equipe/:id', (req, res) => {
+    const idMembreEquipe = req.params.id;
+    const queryDelete = "DELETE From equipe WHERE id = ?";
+
+    req.getConnection((erreur, connection) => {
+        if(erreur){
+            console.log("Erreur suppression equipe : ", erreur);
+
+        } else{
+            connection.query(queryDelete, [idMembreEquipe], (erreur, resultat) => {
+                if(erreur) {
+                    console.log("Erreur requet Suppression : ", erreur);
+
+                } else{
+                    console.log("Bravo! Le membre est supprimé dans la table qquipe");
+
+                    res.status(200).redirect("/api/accueil");
+                }
+            });
+        }
+    });
+});
+
 // J'ajoute un fournisseur dans la table fournisseur pour cela j'utilise la méthode POST
 app.post('/api/fournisseur', (req, res) => {
     console.log("corps de la requête : ", req.body);
@@ -133,6 +157,7 @@ app.post('/api/fournisseur', (req, res) => {
     
 
 });
+
 
 
 app.get('/api/fournisseur', (req, res) => {
