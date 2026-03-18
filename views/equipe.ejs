@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/css/style2.css">
+    <link rel="stylesheet" href="/css/modal.css">
 </head>
 <body>
     <!-- Inclure le fichier navbar.ejs pour avoir la barre de navigation-->
@@ -12,23 +13,170 @@
 
     <h2>Mon Equipe May Gourmet</h2>
 
-    <% resultatEquipe.forEach(resultat => { %>
+    <div class="cards">
+      <% resultatEquipe.forEach(resultat => { %>
         <div class="card">
               <img class="boule" src="/images/full hd.avif" alt="Avatar">
 
             <div class="container">
                 <h1><b><%= resultat.nom %> <%= resultat.prenom %></b></h1>
                 <p><%= resultat.poste %> </p>
-                <input type="button" value="supprimer" onclick="supprimer('<%= resultat.id')">
+                <input type="button" value="supprimer" onclick="supprimer('<%= resultat.id %>')">
             </div>
+            
         </div>
-        
-    <% }) %>
+      <% }) %>
+    </div>
+
+<!-- Bouton pour ouvrir la fenêtre modale --> 
+<button id="myBtn">Ouvrir le Fenêtre</button>
+
+<!-- Fenêtre modale principale (cachée par défaut via CSS) -->
+<div id="myModal" class="modal">
+
+  <!-- Contenu de la modale -->
+  <div class="modal-content">
+    <!-- Bouton de fermeture (×) affiché en haut à droite -->
+    <span class="close">&times;</span>
+    <p class="modal-header">Ajoute des membre</p>
+    <p class="modal-body">Je suis dans modal</p>
+    <p class="modal-footer">Fornulaire d'inscription</p>
+    <div class="container">
+        <form action="/api/equipe" method="post">
+
+            <!--Ligne 1 du formulaire-->
+            <div class="row">
+                <div class="col-25">
+                    <label for="nom">Nom :</label>
+                </div>
+
+                <div class="col-75">
+                    <input type="text" name="nom" id="nom">
+                </div>
+                
+            </div>
+
+            <div class="row">
+                <div class="col-25">
+                    <label for="prenom">Prénom :</label>
+                </div>
+
+                <div class="col-75">
+                    <input type="text" name="prenom" id="prenom">
+                </div>
+                
+            </div>
+
+            <div class="row">
+                <div class="col-25">
+                    <label for="email">Email :</label>
+                </div>
+
+                <div class="col-75">
+                    <input type="text" name="email" id="email">
+                </div>
+                
+            </div>
+
+            <div class="row">
+                <div class="col-25">
+                    <label for="telephone">Télephone :</label>
+                </div>
+
+                <div class="col-75">
+                    <input type="text" name="telephone" id="telephone">
+                </div>
+                
+            </div>
+
+            <div class="row">
+                <div class="col-25">
+                    <label for="poste">Poste :</label>
+                </div>
+
+                <div class="col-75">
+                    <input type="text" name="poste" id="poste">
+                </div>
+                
+            </div>
+
+            <div class="row">
+                <div class="col-25">
+                    <label for="adressepostale">Adresse Postale :</label>
+                </div>
+
+                <div class="col-75">
+                    <input type="text" name="adressepostale" id="adressepostale">
+                </div>
+                
+            </div>
+
+            <div class="row">
+                <div class="col-25">
+                    <label for="presentation">Presentation :</label>
+                </div>
+
+                <div class="col-75">
+                    <input type="text" name="presentation" id="presentation">
+                </div>
+                
+            </div>
+
+            <div class="row">
+                <div class="col-25">
+                    <label for="daterecrutement">Date Recrutement :</label>
+                </div>
+
+                <div class="col-75">
+                    <input type="text" name="daterecrutement" id="daterecrutement">
+                </div>
+                
+            </div>
+
+        </form>
+    </div>
+  
+
+    <button id="btnEnrgistrer">Enregistrer</button>
+    
+            
+    
+
+</div>
+
+
+
 
 </body>
 
 <script>
-    
+
+// Récupère l'élément de la modale via son ID
+const modal = document.getElementById("myModal");
+
+// Récupère le bouton qui déclenche l'ouverture de la modale
+const btn = document.getElementById("myBtn");
+
+// Récupère le bouton de fermeture (la croix ×)
+const span = document.getElementsByClassName("close")[0];
+
+// Quand l'utilisateur clique sur le bouton, affiche la modale
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// Quand l'utilisateur clique sur la croix (×), ferme la modale
+span.onclick = function() {
+  modal.style.display = "none";
+}
+// Quand l'utilisateur clique en dehors de la modale, ferme-la également
+window.onclick = function(event) {
+  // Vérifie si le clic a eu lieu directement sur l'arrière-plan de la modale  
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
 </script>
 
 </html>

@@ -1,0 +1,108 @@
+/* ===== Arrière-plan de la modale ===== */
+.modal {
+  display: none;/* Cachée par défaut */
+  position: fixed;/* Reste en place même lors du défilement */
+  z-index: 1;/* Se place au-dessus des autres éléments */
+  left: 0;
+  top: 0;
+  width: 100%;/* Couvre toute la largeur de l'écran */
+  height: 100%;/* Couvre toute la hauteur de l'écran */
+  overflow: auto;/* Active le défilement si le contenu dépasse */
+  background-color: rgb(0,0,0);/* Couleur de secours (navigateurs anciens) */
+  background-color: rgba(0,0,0,0.4);/* Fond noir semi-transparent (40% d'opacité) */
+}
+
+/* ===== Boîte de contenu de la modale ===== */
+.modal-content {
+  background-color: #fefefe;/* Fond blanc cassé */
+  margin: 15% auto;/* Centré horizontalement, 15% depuis le haut */
+  padding: 20px;/* Espace intérieur autour du contenu */
+  border: 1px solid #888;/* Bordure grise légère */
+  width: 80%;/* Largeur adaptable selon la taille de l'écran */
+}
+
+/* ===== Bouton de fermeture (×) ===== */
+.close {
+  color: #aaa;/* Couleur grise par défaut */
+  float: right;/* Positionné à droite du contenu */
+  font-size: 28px;/* Grande taille pour être facilement cliquable */
+  font-weight: bold;/* Texte en gras */
+}
+
+/* ===== Effet au survol / focus du bouton de fermeture ===== */
+.close:hover,
+.close:focus {
+  color: black;/* Devient noir au survol */
+  text-decoration: none;/* Supprime le soulignement */
+  cursor: pointer;/* Curseur en forme de main pour indiquer le clic */
+}
+
+/* ...existing code... */
+
+/* Style du corps du modal*/
+.modal-body {
+    padding: 2px 16px;
+}
+
+.modal-content .container form .row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 10px;
+}
+
+.modal-content .container form .col-25 {
+    flex: 0 0 100px;
+    text-align: right;
+    padding-right: 10px;
+}
+
+.modal-content .container form .col-75 {
+    flex: 1;
+}
+
+.modal-body .container form input[type="text"] {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.modal-content .container form .row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+}
+
+.modal-content .container form .col-25 {
+    flex: 0 0 100px;
+    text-align: right;
+    padding-right: 8px;
+}
+
+.modal-content .container form .col-75 {
+    flex: 1;
+    min-width: 180px;
+}
+
+.modal-content .container form input[type="text"],
+.modal-content .container form input[type="email"],
+.modal-content .container form textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 6px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.modal-footer {
+  padding: 2px 16px;
+  background-color: #5cb85c;
+  color: white;
+}
+
+/*Add Animation */
+@keyframes animatetop {
+  from {top: -300px; opacity: 0}
+  to {top: 0; opacity: 1}
+}
