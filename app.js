@@ -62,30 +62,31 @@ app.get("/api/accueil", (req, res) => {
 app.get("/api/equipe", (req, res) => {
     console.log(" Je passe dans /api/equipe");
 
-    // 1. Je me connecte à la BDD grâce à la méthode getconnection
     req.getConnection((erreur, connection) => {
-        // Je vérifie s'il y a une erreur lors de la connexion à la BDD
         if(erreur){
             console.log(erreur);
-        } else{
-            connection.query("SELECT * FROM equipe", [], (err,resultatEquipe) => {
-                if (erreur) {
-                    console.log("Erreur dans la requête Sql SELECT");
-                } else{
-                    console.log("Mon équipe:", resultatEquipe);
-
-                    // Je retourne au client le résultat de la requpete Sql 
-                    res.render("equipe", {resultatEquipe});
-                }
-            });
-                
-            
+            return res.status(500).send("Erreur DB");
         }
+        connection.query("SELECT * FROM equipe", [], (err,resultatEquipe) => {
+            if (err) {
+                console.log("Erreur dans la requête Sql SELECT", err);
+                return res.status(500).send("Erreur SQL");
+            }
+            res.render("equipe", {resultatEquipe});
+        });
     });
-
-   
 });
 
+app.get('/api/contact', (req, res) => {
+    res.render('contact', { success: false });
+});
+
+app.post('/api/contact', (req, res) => {
+    const { name, email, message } = req.body;
+    console.log('Nouveau contact:', name, email, message);
+    // Optionnel: ajouter en base de données si la table existe.
+    res.render('contact', { success: true });
+});
 
 app.delete('/api/equipe/:id', (req, res) => {
     const idMembreEquipe = req.params.id;
@@ -101,21 +102,45 @@ app.delete('/api/equipe/:id', (req, res) => {
                     console.log("Erreur requet Suppression : ", erreur);
 
                 } else{
-                    console.log("Bravo! Le membre est supprimé dans la table qquipe");
+                    console.log("Bravo! Le membre est supprimé dans la table quipe");
 
-                    res.status(200).redirect("/api/accueil");
+                    // Redirect
+                    res.status(200).json({ routeAccueil:"/api/accueil"});
                 }
             });
         }
     });
 });
 
+
+
+
 /**
  * API pour ajouter un membre d'équipe.
  * Le membre sera inséré dans sla table equipe
  */
 app.post("/api/equipe",(req,res) =>{
+    const { nom, prenom, email, telephone, poste, adressepostale, presentation, daterecrutement } = req.body;
 
+    const requeteSql = "INSERT INTO equipe (nom, prenom, email, telephone, poste, adresse_postale, presentation, date_recrutement) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    const ordreChamps = [nom, prenom, email, telephone, poste, adressepostale, presentation, daterecrutement];
+
+    req.getConnection((erreur, connection) => {
+        if (erreur) {
+            console.log("Erreur de connexion base de données :", erreur);
+            res.status(500).send("Erreur serveur");
+        } else {
+            connection.query(requeteSql, ordreChamps, (erreur,resultat) => {
+                if (erreur) {
+                    console.log("Erreur d'ajout equipe :", erreur);
+                    res.status(500).send("Erreur insertion");
+                } else {
+                    console.log("Bravo ! Nouveau membre ajouté à l'équipe");
+                    res.redirect("/api/equipe");
+                }
+            });
+        }
+    });
 });
 
 // J'ajoute un fournisseur dans la table fournisseur pour cela j'utilise la méthode POST
@@ -167,6 +192,17 @@ app.post('/api/fournisseur', (req, res) => {
 });
 
 
+
+app.get('/api/plats', (req, res) => {
+    res.render('plats');
+});
+
+app.post('/api/plats/ajouter', (req, res) => {
+    const { entree, plat, dessert } = req.body;
+    console.log('Nouveau menu:', entree, plat, dessert);
+    // Ici vous pouvez ajouter une insertion en base si besoin.
+    res.redirect('/api/plats');
+});
 
 app.get('/api/fournisseur', (req, res) => {
     res.render('fournisseur');

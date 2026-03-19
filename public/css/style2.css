@@ -24,7 +24,7 @@ body{
   width: 260px;
   height: 360px;
   border-radius: 18px;
-  background: #3bcef6;
+  background: #fbc17e;
   border: 1px solid #00000033;
   margin: 0;
   padding: 16px;
@@ -74,3 +74,21 @@ h1{
 p{
     font-size: 30px;
 }
+
+header nav#main {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+header nav#main a {
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+}
+
+header nav#main a:hover {
+    color: #2b7a78;
+}
+

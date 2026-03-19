@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Plats</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="bodyPlats">
+
+<%- include('navbar') %>
+
+<div class="container">
+    <h1>Nos Plats 🍽️</h1>
+    <p><strong>Voici les plats de MayGourmet</strong></p>
+
+    <h2>Menu</h2>
+    <table class="table-plats">
+        <thead>
+            <tr>
+                <th>Entrées</th>
+                <th>Plats</th>
+                <th>Desserts</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Avocado toast</td>
+                <td>Bœuf bourguignon</td>
+                <td>Crème brûlée</td>
+            </tr>
+            <tr>
+                <td>Velouté de carotte</td>
+                <td>Filet de saumon aux herbes</td>
+                <td>Tartelette aux fruits</td>
+            </tr>
+            <tr>
+                <td>Bruschetta tomate basilic</td>
+                <td>Raviolis maison au fromage</td>
+                <td>Moelleux au chocolat</td>
+            </tr>
+            <tr>
+                <td>Ceviche de langoustine</td>
+                <td>Curry de légumes</td>
+                <td>Panna cotta aux fruits rouges</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Ajouter un nouveau plat</h2>
+    <form action="/api/plats/ajouter" method="post" class="form-plats">
+        <div>
+            <label for="entree">Entrée :</label>
+            <input type="text" id="entree" name="entree" placeholder="Nouvelle entrée">
+        </div>
+        <div>
+            <label for="plat">Plat :</label>
+            <input type="text" id="plat" name="plat" placeholder="Nouveau plat">
+        </div>
+        <div>
+            <label for="dessert">Dessert :</label>
+            <input type="text" id="dessert" name="dessert" placeholder="Nouveau dessert">
+        </div>
+        <button type="submit">Enregistrer</button>
+    </form>
