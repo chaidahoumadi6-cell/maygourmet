@@ -21,7 +21,16 @@ h3{
 .container {
     margin: 100px auto;
     width: 1000px;
-    height: 300px;
+    height: 600px;
+    background: rgba(244, 200, 141, 0.95);
+    border-radius: 12px;
+    padding: 100px;
+}
+
+#containerFournisseur {
+    margin: 100px auto;
+    width: 1000px;
+    height: 400px;
     background: rgba(244, 200, 141, 0.95);
     border-radius: 12px;
     padding: 100px;
@@ -44,10 +53,12 @@ h3{
     color: rgb(240, 243, 245);
 }
 
+
 .form-plats {
     display: grid;
     gap: 10px;
     margin-top: 12px;
+    
 }
 
 .form-plats div {
@@ -113,10 +124,13 @@ header nav#main a:hover {
 }
 
 .bodycontact {
-    background-image: url(/images/Informations.png)
+    background-image: url(/images/Contact.png);
 }
 
 .bodyfournisseur {
     background-image: url(/images/Livraison.png);
 }
 
+#buttonEnregistrer {
+   margin-top: 60px;
+}

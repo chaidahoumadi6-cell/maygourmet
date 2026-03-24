@@ -3,134 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Mon Équipe</title>
+
     <link rel="stylesheet" href="/css/style2.css">
     <link rel="stylesheet" href="/css/modal.css">
-    <script src="/js/modal.js"defer></script>
+    <link rel="stylesheet" href="/css/toast.css">
+
+    <script src="/js/modal.js" defer></script>
     <script src="/js/script.js" defer></script>
 </head>
 <body>
 
-     <!-- Inclure le fichier navbar.ejs pour avoir la barre de navigation-->
     <%- include('navbar') -%>
 
-    <h2>Mon Equipe May Gourmet</h2>
+    <h2>Mon Équipe May Gourmet</h2>
 
     <div class="cards">
-      <% resultatEquipe.forEach(resultat => { %>
-        <div class="card">
-            <img class="boule" src="/images/full hd.avif" alt="Avatar">
-            <div class="container">
-                <h1><b><%= resultat.nom %> <%= resultat.prenom %></b></h1>
-                <p><%= resultat.poste %></p>
-                <input type="button" value="supprimer" onclick="supprimer('<%= resultat.id %>')">
-                <input type="button" value="modifier" onclick="modifier('<%= resultat.id %>', '<%= resultat.nom %>', '<%= resultat.prenom %>', '<%= resultat.email %>', '<%= resultat.telephone %>', '<%= resultat.poste %>', '<%= resultat.adresse_postale %>', '<%= resultat.presentation %>', '<%= resultat.date_recrute %>')">
+        <% resultatEquipe.forEach(resultat => { %>
+            <div class="card">
+                <img class="boule" src="/images/full hd.avif" alt="Avatar">
+                <div class="container">
+                    <h1><b><%= resultat.nom %> <%= resultat.prenom %></b></h1>
+                    <p><%= resultat.poste %></p>
+
+                    <input type="button" value="Supprimer" onclick="supprimer('<%= resultat.id %>')">
+                    
+                    <input type="button" value="Modifier" onclick="modifier(
+                        '<%= resultat.id %>',
+                        '<%= resultat.nom %>',
+                        '<%= resultat.prenom %>',
+                        '<%= resultat.email %>',
+                        '<%= resultat.telephone %>',
+                        '<%= resultat.poste %>',
+                        '<%= resultat.adresse_postale %>',
+                        '<%= resultat.presentation %>',
+                        '<%= resultat.date_recrutement %>'
+                    )">
+                </div>
             </div>
-        </div>
-      <% }) %>
+        <% }) %>
     </div>
 
- <!-- Bouton pour ouvrir la fenêtre modale -->   
-<button id="myBtn">Ouvrir le Fenêtre</button>
-<!-- Fenêtre modale principale (cachée par défaut via CSS) -->
-<div id="myModal" class="modal">
-    <!-- Contenu de la modale -->
-  <div class="modal-content">
-    <!-- Bouton de fermeture (×) affiché en haut à droite -->
-    <span class="close">&times;</span>
+    <!-- Toast -->
+    <div id="toast" class="toast"></div>
 
-    <div class="modal-body">
-        <p class="modal-header">Ajouter des membres</p>
-        <p>Formulaire d'inscription</p>
+    <!-- Bouton ouverture modal -->
+    <button id="myBtn">Ajouter un membre</button>
 
-        <div class="container">
-        <form action="/api/equipe" method="post">
+    <!-- MODAL -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
 
-            <!--Ligne 1 du formulaire-->
-            <div class="row">
-                <div class="col-25">
-                    <label for="nom">Nom :</label>
-                </div>
-                <div class="col-75">
-                    <input type="text" name="nom" id="nom">
-                </div>
+            <div class="modal-body">
+                <p class="modal-header">Ajouter un membre</p>
+
+                <form id="membreForm" action="/api/equipe" method="post">
+
+                    <div class="row">
+                        <label>Nom :</label>
+                        <input type="text" id="nom" name="nom">
+                    </div>
+
+                    <div class="row">
+                        <label>Prénom :</label>
+                        <input type="text" id="prenom" name="prenom">
+                    </div>
+
+                    <div class="row">
+                        <label>Email :</label>
+                        <input type="email" id="email" name="email">
+                    </div>
+
+                    <div class="row">
+                        <label>Téléphone :</label>
+                        <input type="text" id="telephone" name="telephone">
+                    </div>
+
+                    <div class="row">
+                        <label>Poste :</label>
+                        <input type="text" id="poste" name="poste">
+                    </div>
+
+                    <div class="row">
+                        <label>Adresse Postale :</label>
+                        <input type="text" id="adresse_postale" name="adresse_postale">
+                    </div>
+
+                    <div class="row">
+                        <label>Présentation :</label>
+                        <textarea id="presentation" name="presentation" rows="4"></textarea>
+                    </div>
+
+                    <div class="row">
+                        <label>Date de recrutement :</label>
+                        <input type="date" id="dateRecrutement" name="date_recrutement">
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit">Enregistrer</button>
+                    </div>
+
+                </form>
             </div>
 
-            <div class="row">
-                <div class="col-25">
-                    <label for="prenom">Prénom :</label>
-                </div>
-                <div class="col-75">
-                    <input type="text" name="prenom" id="prenom">
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-25">
-                    <label for="email">Email :</label>
-                </div>
-                <div class="col-75">
-                    <input type="email" name="email" id="email">
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-25">
-                    <label for="telephone">Téléphone :</label>
-                </div>
-                <div class="col-75">
-                    <input type="text" name="telephone" id="telephone">
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-25">
-                    <label for="poste">Poste :</label>
-                </div>
-                <div class="col-75">
-                    <input type="text" name="poste" id="poste">
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-25">
-                    <label for="adresse_postale">Adresse Postale :</label>
-                </div>
-                <div class="col-75">
-                    <input type="text" name="adressepostale" id="adresse_postale">
-                </div>
-            </div>
-
-            <!-- CORRECTION : col-25 → col-75 pour le textarea -->
-            <div class="row">
-                <div class="col-25">
-                    <label for="presentation">Présentation :</label>
-                </div>
-                <div class="col-75">
-                    <textarea name="presentation" id="presentation" rows="5"></textarea>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-25">
-                    <label for="dateRecrutement">Date Recrutement :</label>
-                </div>
-                <div class="col-75">
-                    <input type="date" name="daterecrutement" id="dateRecrutement">
-                </div>
-            </div>
-
-            <div class="modal-footer">
-                <button id="btnEnrgistrer" type="submit">Enregistrer</button>
-            </div>
-
-        </form>
         </div>
     </div>
-
-  </div>
-</div>
 
 </body>
-
 </html>

@@ -1,13 +1,6 @@
 function supprimer(id) {
-    const routComplet = '/api/equipe/'+id;
-
-    fetch(
-        routComplet, {method: "DELETE"}
-    ).then(
-        (reponse) => reponse.json()
-    ).then(
-        (donnee) => window.location.href = donnee.routeAccueil
-    ).catch(
-        (erreur) => console.log(erreur)
-    )
+  fetch(`/api/equipe/${id}`, { method: "DELETE" })
+    .then(res => res.json())
+    .then(data => window.location.href = data.routeAccueil)
+    .catch(err => console.log(err));
 }
