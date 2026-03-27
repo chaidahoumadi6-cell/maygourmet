@@ -5,29 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mon Équipe</title>
 
-    <link rel="stylesheet" href="/css/style2.css">
-    <link rel="stylesheet" href="/css/modal.css">
-    <link rel="stylesheet" href="/css/toast.css">
+    <!-- Feuilles de style CSS -->
+    <link rel="stylesheet" href="/css/style2.css"> <!-- Style principal de la page -->
+    <link rel="stylesheet" href="/css/modal.css">  <!-- Style du modal -->
+    <link rel="stylesheet" href="/css/toast.css">  <!-- Style des notifications toast -->
 
-    <script src="/js/modal.js" defer></script>
-    <script src="/js/script.js" defer></script>
+    <!-- Scripts JavaScript chargés en différé (après le chargement du DOM) -->
+    <script src="/js/modal.js" defer></script>  <!-- Logique d'ouverture/fermeture du modal -->
+    <script src="/js/script.js" defer></script>  <!-- Script principal de la page -->
 </head>
 <body>
 
+    <!-- Inclusion de la barre de navigation -->
     <%- include('navbar') -%>
 
+    <!-- Titre de la page -->
     <h2>Mon Équipe May Gourmet</h2>
 
+    <!-- Grille de cartes : une carte par membre de l'équipe -->
     <div class="cards">
+        <!-- Boucle EJS sur chaque membre de l'équipe -->
         <% resultatEquipe.forEach(resultat => { %>
             <div class="card">
+                <!-- Photo de profil du membre -->
                 <img class="boule" src="/images/full hd.avif" alt="Avatar">
+
                 <div class="container">
+                    <!-- Nom et prénom du membre -->
                     <h1><b><%= resultat.nom %> <%= resultat.prenom %></b></h1>
+
+                    <!-- Poste occupé par le membre -->
                     <p><%= resultat.poste %></p>
 
+                    <!-- Bouton pour supprimer le membre (appel à la fonction JS supprimer) -->
                     <input type="button" value="Supprimer" onclick="supprimer('<%= resultat.id %>')">
                     
+                    <!-- Bouton pour modifier le membre (passe toutes ses données à la fonction JS modifier) -->
                     <input type="button" value="Modifier" onclick="modifier(
                         '<%= resultat.id %>',
                         '<%= resultat.nom %>',
@@ -41,65 +54,78 @@
                     )">
                 </div>
             </div>
-        <% }) %>
+        <% }) %> <!-- Fin de la boucle forEach -->
     </div>
 
-    <!-- Toast -->
+    <!-- Notification toast (message temporaire affiché après une action) -->
     <div id="toast" class="toast"></div>
 
-    <!-- Bouton ouverture modal -->
+    <!-- Bouton pour ouvrir le modal d'ajout d'un membre -->
     <button id="myBtn">Ajouter un membre</button>
 
-    <!-- MODAL -->
+    <!-- MODAL : fenêtre pop-up pour ajouter ou modifier un membre -->
     <div id="myModal" class="modal">
         <div class="modal-content">
+
+            <!-- Bouton de fermeture du modal (×) -->
             <span class="close">&times;</span>
 
             <div class="modal-body">
+                <!-- Titre du modal (modifié dynamiquement en JS selon le contexte) -->
                 <p class="modal-header">Ajouter un membre</p>
 
+                <!-- Formulaire d'ajout/modification d'un membre -->
                 <form id="membreForm" action="/api/equipe" method="post">
 
+                    <!-- Champ : Nom -->
                     <div class="row">
                         <label>Nom :</label>
                         <input type="text" id="nom" name="nom">
                     </div>
 
+                    <!-- Champ : Prénom -->
                     <div class="row">
                         <label>Prénom :</label>
                         <input type="text" id="prenom" name="prenom">
                     </div>
 
+                    <!-- Champ : Email -->
                     <div class="row">
                         <label>Email :</label>
                         <input type="email" id="email" name="email">
                     </div>
 
+                    <!-- Champ : Numéro de téléphone -->
                     <div class="row">
                         <label>Téléphone :</label>
                         <input type="text" id="telephone" name="telephone">
                     </div>
 
+                    <!-- Champ : Poste occupé -->
                     <div class="row">
                         <label>Poste :</label>
                         <input type="text" id="poste" name="poste">
                     </div>
 
+                    <!-- Champ : Adresse postale -->
                     <div class="row">
                         <label>Adresse Postale :</label>
                         <input type="text" id="adresse_postale" name="adresse_postale">
                     </div>
 
+                    <!-- Champ : Présentation libre du membre -->
                     <div class="row">
                         <label>Présentation :</label>
                         <textarea id="presentation" name="presentation" rows="4"></textarea>
                     </div>
 
+                    <!-- Champ : Date de recrutement -->
                     <div class="row">
                         <label>Date de recrutement :</label>
                         <input type="date" id="dateRecrutement" name="date_recrutement">
                     </div>
 
+                    <!-- Pied du modal : bouton de soumission du formulaire -->
                     <div class="modal-footer">
                         <button type="submit">Enregistrer</button>
                     </div>
